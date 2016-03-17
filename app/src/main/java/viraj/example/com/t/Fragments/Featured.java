@@ -1,4 +1,4 @@
-package viraj.example.com.t;
+package viraj.example.com.t.Fragments;
 
 
 import android.os.Bundle;
@@ -24,6 +24,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import viraj.example.com.t.ItemInfo;
+import viraj.example.com.t.ListAdptr;
+import viraj.example.com.t.MySingleton;
+import viraj.example.com.t.R;
 
 public class Featured extends Fragment {
     private static final String ARG_SECTION_NUMBER = "section_number";
