@@ -9,7 +9,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import viraj.example.com.t.Adapter.ListAdptr;
 import viraj.example.com.t.Constants;
 import viraj.example.com.t.Pojo.ItemInfo;
 
@@ -19,34 +18,29 @@ import viraj.example.com.t.Pojo.ItemInfo;
 public class JsonParser {
 
 
-    public void response(JSONArray jsonArray, ListAdptr adapter) {
-        try {
-            List<ItemInfo> list = parse(jsonArray);
-            adapter.notifyAdapter(list);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public List<ItemInfo> parse(JSONArray jsonO) throws JSONException {
+    public List<ItemInfo> parse(JSONArray jsonArray) {
         ArrayList<ItemInfo> records = new ArrayList<ItemInfo>();
 
 
-        for(int i =0; i < jsonO.length(); i++) {
+        for(int i =0; i < jsonArray.length(); i++) {
 
-            JSONObject json = jsonO.getJSONObject(i);
+            try {
+                JSONObject json = jsonArray.getJSONObject(i);
 
-            String title = json.getString(Constants.KEY_TITLE);
-            title =  Html.fromHtml(title).toString();
+                String title = json.getString(Constants.KEY_TITLE);
 
-            String description = json.getString(Constants.KEY_DESCRIPTION);
-            description = Html.fromHtml(description).toString();
-
-            String imageUrl = json.getString(Constants.KEY_IMAGE_URL);
+                String description = json.getString(Constants.KEY_DESCRIPTION);
+                description = (Html.fromHtml(description).toString()).replaceAll("\\s+", " ").trim();
 
 
-            ItemInfo record = new ItemInfo(imageUrl, title, description);
-            records.add(record);
+                String imageUrl = json.getString(Constants.KEY_IMAGE_URL);
+
+                ItemInfo record = new ItemInfo(imageUrl, title, description);
+                records.add(record);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
         return records;

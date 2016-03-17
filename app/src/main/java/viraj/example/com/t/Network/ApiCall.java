@@ -9,7 +9,6 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -28,22 +27,15 @@ public class ApiCall {
     String mSetURL;
 
     public void fetch(final Context context, int position, final ListAdptr adapter) {
-        setURL(position);
+        mSetURL = setURL(position);
 
         JsonArrayRequest request = new JsonArrayRequest(
                 mSetURL,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
-                        new JsonParser().response(response, adapter);
-                        try {
-
                             List<ItemInfo> list = new JsonParser().parse(response);
                             adapter.notifyAdapter(list);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
                     }
                 },
                 new Response.ErrorListener() {
@@ -66,7 +58,7 @@ public class ApiCall {
         MySingleton.getInstance(context).getRequestQueue().add(request);
     }
 
-    private void setURL(int tabPosition) {
+    private String setURL(int tabPosition) {
         switch (tabPosition) {
             case 0:
                 mSetURL = Constants.FRAGMENT_TOP_URL;
@@ -80,6 +72,7 @@ public class ApiCall {
                 mSetURL = Constants.FRAGMENT_FEATURED_URL;
                 break;
         }
+        return mSetURL;
     }
 
 
