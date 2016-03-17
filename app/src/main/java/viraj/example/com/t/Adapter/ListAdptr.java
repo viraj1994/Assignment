@@ -47,6 +47,7 @@ public class ListAdptr extends ArrayAdapter<ItemInfo> {
         return convertView;
     }
 
+
     public void notifyAdapter(List<ItemInfo> objects) {
         clear();
 
