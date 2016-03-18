@@ -7,17 +7,22 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import viraj.example.com.t.Adapter.ListAdptr;
 import viraj.example.com.t.Network.ApiCall;
 import viraj.example.com.t.R;
 
-public  class Popular extends Fragment {
+public  class Popular extends Fragment implements View.OnClickListener {
     private static final String ARG_SECTION_NUMBER = "section_number";
     public ListAdptr mAdapter;
     private View rootView;
     private static int position;
+    private static TextView popularPageCount;
+    private ApiCall apiCall;
+    private Button popularNext, popularPrevious;
 
     public Popular() {
     }
@@ -43,12 +48,65 @@ public  class Popular extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         mAdapter = new ListAdptr(getActivity());
-
+        popularPageCount = (TextView) rootView.findViewById(R.id.popularPageCount);
         ListView listView = (ListView) rootView.findViewById(R.id.list_popular);
         listView.setAdapter(mAdapter);
 
-        new ApiCall().fetch(getContext(), position, mAdapter);
+        popularNext = (Button) rootView.findViewById(R.id.popularNext);
+        popularPrevious = (Button) rootView.findViewById(R.id.popularPrevious);
+
+        popularNext.setOnClickListener(this);
+        popularPrevious.setOnClickListener(this);
+
+        apiCall = new ApiCall(mAdapter, position);
+        apiCall.fetch(getContext());
+
+
+
+    }
+
+    // Set the page count in the TextView
+    public static void setPageCount(int currentPage, int pageCount) {
+        String text = "Page " + (currentPage + 1) + " of " +pageCount;
+        popularPageCount.setText(text);
     }
 
 
+    //implementation on Button Click
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.popularNext:
+                buttonState(apiCall.changePage(1));
+                break;
+
+            case R.id.popularPrevious:
+                buttonState(apiCall.changePage(0));
+                break;
+        }
+    }
+
+
+    /*
+        0-next button
+        1-previous button
+        2-both buttons
+     */
+
+    private void buttonState(int getStatus) {
+        switch (getStatus) {
+            case 0:
+                popularNext.setEnabled(false);
+                break;
+
+            case 1:
+                popularPrevious.setEnabled(false);
+                break;
+
+            case 2:
+                popularNext.setEnabled(true);
+                popularPrevious.setEnabled(true);
+                break;
+        }
+    }
 }

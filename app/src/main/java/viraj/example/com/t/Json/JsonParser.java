@@ -15,6 +15,12 @@ import viraj.example.com.t.Pojo.ItemInfo;
 /**
  * Created by viraj on 17-03-2016.
  */
+
+
+    /*
+        Class to parse the json Data which
+         was received from the api
+    */
 public class JsonParser {
 
 

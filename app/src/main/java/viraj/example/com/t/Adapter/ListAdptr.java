@@ -17,8 +17,13 @@ import viraj.example.com.t.Network.MySingleton;
 import viraj.example.com.t.Pojo.ItemInfo;
 import viraj.example.com.t.R;
 
+
+    /*
+        Implementation of the custom Adapter
+    */
 public class ListAdptr extends ArrayAdapter<ItemInfo> {
     private ImageLoader mImageLoader;
+
 
     public ListAdptr(Context context) {
         super(context, R.layout.custom_view);
@@ -28,9 +33,10 @@ public class ListAdptr extends ArrayAdapter<ItemInfo> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        if(convertView == null) {
+        if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.custom_view, parent, false);
         }
+
 
         // NOTE: You would normally use the ViewHolder pattern here
         NetworkImageView imageView = (NetworkImageView) convertView.findViewById(R.id.image);
@@ -48,13 +54,12 @@ public class ListAdptr extends ArrayAdapter<ItemInfo> {
     }
 
 
+    // if data changes notify the adapter
     public void notifyAdapter(List<ItemInfo> objects) {
         clear();
-
-        for(ItemInfo object : objects) {
+        for (ItemInfo object : objects) {
             add(object);
         }
-
         notifyDataSetChanged();
     }
 }

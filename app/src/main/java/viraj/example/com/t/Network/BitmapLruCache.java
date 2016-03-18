@@ -5,6 +5,10 @@ import android.support.v4.util.LruCache;
 
 import com.android.volley.toolbox.ImageLoader;
 
+
+/*
+    implementation of LRU Cache
+ */
 public class BitmapLruCache extends LruCache<String, Bitmap>
         implements ImageLoader.ImageCache {
 

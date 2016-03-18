@@ -10,6 +10,11 @@ import com.android.volley.toolbox.Volley;
  */
 
 
+/*
+    Implementation of Singleton class
+    so to make use of the request queue from anywhere
+ */
+
 public class MySingleton {
     private static MySingleton mInstance;
     private RequestQueue mRequestQueue;

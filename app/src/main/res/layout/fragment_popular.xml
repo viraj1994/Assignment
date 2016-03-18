@@ -8,9 +8,39 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="viraj.example.com.t.MainActivity$PlaceholderFragment">
 
+
+    <Button
+        android:id="@+id/popularPrevious"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/previous"/>
+
+    <TextView
+        android:id="@+id/popularPageCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_toRightOf="@+id/popularPrevious"
+        android:layout_toLeftOf="@+id/popularNext"
+        android:background="@android:color/darker_gray"
+        android:padding="10dp"/>
+
+    <Button
+        android:id="@+id/popularNext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="@string/next"
+        android:layout_alignTop="@+id/topPageCount"
+        android:layout_alignParentEnd="true" />
+
+
     <ListView
         android:id="@+id/list_popular"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/popularPageCount"/>
 
 </RelativeLayout>

@@ -3,6 +3,9 @@ package viraj.example.com.t;
 /**
  * Created by viraj on 17-03-2016.
  */
+
+
+// A common class for the constants.
 public class Constants {
 
     public static final String FRAGMENT_TOP_URL = "http://rails4.desidime.com/v1/deals/top.json";
@@ -18,4 +21,6 @@ public class Constants {
     public static final String KEY_TITLE = "title";
     public static final String KEY_DESCRIPTION = "deal_detail";
     public static final String KEY_IMAGE_URL = "image_thumb";
+
+    public static final int itemPerPage = 10;
 }

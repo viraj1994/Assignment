@@ -3,6 +3,11 @@ package viraj.example.com.t.Pojo;
 /**
  * Created by viraj on 17-03-2016.
  */
+
+ /*
+    A class to hold the data to be required
+    for each row
+ */
 public class ItemInfo {
 
     private String imageUrl;
