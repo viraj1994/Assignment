@@ -59,6 +59,8 @@ public class Top extends Fragment implements View.OnClickListener {
         topPrevious.setOnClickListener(this);
 
 
+        changeButtonState(1);
+
         ListView listView = (ListView) rootView.findViewById(R.id.list);
         listView.setAdapter(mAdapter);
 
@@ -76,16 +78,22 @@ public class Top extends Fragment implements View.OnClickListener {
 
 
 
-    //implementation on Button Click
+    /*
+    implementation on Button Click send
+    0- if previous button is clicked
+     1- if next button is clicked
+    */
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.topNext:
-                buttonState(apiCall.changePage(1));
+                apiCall.changePage(1);
+                changeButtonState(apiCall.getButtonState());
                 break;
 
             case R.id.topPrevious:
-                buttonState(apiCall.changePage(0));
+                apiCall.changePage(0);
+                changeButtonState(apiCall.getButtonState());
                 break;
         }
 
@@ -97,14 +105,16 @@ public class Top extends Fragment implements View.OnClickListener {
         2-both buttons
     */
 
-    private void buttonState(int getStatus) {
+    private void changeButtonState(int getStatus) {
         switch (getStatus) {
             case 0:
                 topNext.setEnabled(false);
+                topPrevious.setEnabled(true);
                 break;
 
             case 1:
                 topPrevious.setEnabled(false);
+                topNext.setEnabled(true);
                 break;
 
             case 2:

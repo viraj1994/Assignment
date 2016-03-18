@@ -55,6 +55,7 @@ public class Featured extends Fragment implements View.OnClickListener {
         featureNext = (Button) rootView.findViewById(R.id.featureNext);
         featurePrevious = (Button) rootView.findViewById(R.id.featurePrevious);
 
+        changeButtonState(1);
         featureNext.setOnClickListener(this);
         featurePrevious.setOnClickListener(this);
 
@@ -71,16 +72,22 @@ public class Featured extends Fragment implements View.OnClickListener {
     }
 
 
-    //implementation on Button Click
+    /*
+   implementation on Button Click send
+   0- if previous button is clicked
+    1- if next button is clicked
+   */
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.featureNext:
-                buttonState(apiCall.changePage(1));
+                apiCall.changePage(1);
+                changeButtonState(apiCall.getButtonState());
                 break;
 
             case R.id.featurePrevious:
-                buttonState(apiCall.changePage(0));
+                apiCall.changePage(0);
+                changeButtonState(apiCall.getButtonState());
                 break;
         }
     }
@@ -91,14 +98,16 @@ public class Featured extends Fragment implements View.OnClickListener {
         1-previous button
         2-both buttons
     */
-    private void buttonState(int getStatus) {
+    private void changeButtonState(int getStatus) {
         switch (getStatus) {
             case 0:
                 featureNext.setEnabled(false);
+                featurePrevious.setEnabled(true);
                 break;
 
             case 1:
                 featurePrevious.setEnabled(false);
+                featureNext.setEnabled(true);
                 break;
 
             case 2:

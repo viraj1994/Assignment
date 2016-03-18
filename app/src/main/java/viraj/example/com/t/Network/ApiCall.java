@@ -168,17 +168,26 @@ public class ApiCall {
     }
 
 
-    //To move on the next or previous page of the same tab
-    public int changePage(int page) {
-        int change;
+    /*To move on the next or previous page of the same tab
+        1- on next Page
+        0- on previous page
+     */
+    public void changePage(int page) {
         if (page == 1) {
             increment++;
             loadList(increment);
+            getButtonState();
         } else if (page == 0){
             increment--;
             loadList(increment);
+            getButtonState();
         }
 
+    }
+
+
+    public int getButtonState() {
+        int change;
         if (increment+1 == pageCount) {
             change = 0;
         } else if (increment == 0) {

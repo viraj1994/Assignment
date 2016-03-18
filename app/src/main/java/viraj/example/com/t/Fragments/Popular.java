@@ -49,6 +49,7 @@ public  class Popular extends Fragment implements View.OnClickListener {
 
         mAdapter = new ListAdptr(getActivity());
         popularPageCount = (TextView) rootView.findViewById(R.id.popularPageCount);
+
         ListView listView = (ListView) rootView.findViewById(R.id.list_popular);
         listView.setAdapter(mAdapter);
 
@@ -57,6 +58,8 @@ public  class Popular extends Fragment implements View.OnClickListener {
 
         popularNext.setOnClickListener(this);
         popularPrevious.setOnClickListener(this);
+
+        changeButtonState(1);
 
         apiCall = new ApiCall(mAdapter, position);
         apiCall.fetch(getContext());
@@ -72,16 +75,22 @@ public  class Popular extends Fragment implements View.OnClickListener {
     }
 
 
-    //implementation on Button Click
+     /*
+    implementation on Button Click send
+    0- if previous button is clicked
+     1- if next button is clicked
+    */
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.popularNext:
-                buttonState(apiCall.changePage(1));
+                apiCall.changePage(1);
+                changeButtonState(apiCall.getButtonState());
                 break;
 
             case R.id.popularPrevious:
-                buttonState(apiCall.changePage(0));
+                apiCall.changePage(0);
+                changeButtonState(apiCall.getButtonState());
                 break;
         }
     }
@@ -93,14 +102,16 @@ public  class Popular extends Fragment implements View.OnClickListener {
         2-both buttons
      */
 
-    private void buttonState(int getStatus) {
+    private void changeButtonState(int getStatus) {
         switch (getStatus) {
             case 0:
                 popularNext.setEnabled(false);
+                popularPrevious.setEnabled(true);
                 break;
 
             case 1:
                 popularPrevious.setEnabled(false);
+                popularNext.setEnabled(true);
                 break;
 
             case 2:
